@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: build new rule-set
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 23 * * *"
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+   
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+      - name: Set date
+        run: echo "TZ=Asia/Shanghai" >> $GITHUB_ENV
+        
+      - name: Set variables
+        run: |
+          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "Apple=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml" >> $GITHUB_ENV
+          echo "bahamut=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bahamut.yaml" >> $GITHUB_ENV
+          echo "bilibili=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/BilibiliHMT.yaml" >> $GITHUB_ENV
+          echo "DMM=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DMM/DMM.yaml" >> $GITHUB_ENV
+          echo "ehentai=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EHGallery/EHGallery.yaml" >> $GITHUB_ENV
+          echo "tiktok=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/TikTok.yaml" >> $GITHUB_ENV
+          echo "telegram=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml" >> $GITHUB_ENV
+        
+          echo "DOMESTIC=https://raw.githubusercontent.com/zzz6839/PROXY-PROVIDERS-SYNC/zzz6839-patch-1/domestic.yaml" >> $GITHUB_ENV
+          echo "EPIC=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml" >> $GITHUB_ENV
+          echo "steam=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Game/Steam.yaml" >> $GITHUB_ENV
+          echo "steamCN=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml" >> $GITHUB_ENV
+          echo "Proxy=https://raw.githubusercontent.com/zzz6839/PROXY-PROVIDERS-SYNC/zzz6839-patch-1/Proxy.yaml" >> $GITHUB_ENV
+          echo "onlinegame=https://raw.githubusercontent.com/zzz6839/PROXY-PROVIDERS-SYNC/zzz6839-patch-1/onlinegame.yaml" >> $GITHUB_ENV
+          echo "microsoft=https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Microsoft.yaml" >> $GITHUB_ENV
+          echo "github=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml" >> $GITHUB_ENV
+          echo "rockstar=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml" >> $GITHUB_ENV
+       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: check-out
+      - uses: actions/checkout@v3
+       
+       # generate domain.txt
+      - name: Generate icloud.txt file
+        run: |
+        
+        # generate ip.txt
+      - name: Generate icloud.txt file
+        run: |
+        
+        # release
+      - name: Git push assets to "release" branch
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "${{ env.COMMIT_DATE }}" || true
+          git push
+        
