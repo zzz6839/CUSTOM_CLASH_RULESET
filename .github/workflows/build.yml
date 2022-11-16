@@ -120,12 +120,20 @@ jobs:
         run: |
           curl -sSL ${Telegram} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> Telegram_ip.yaml
 
-       # release
-      - name: Git push assets to "release" branch
+      - name: Move files to clash directory
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "${{ env.COMMIT_DATE }}" || true
-          git push
+          mkdir -p clash
+          cp *.yaml ./clash/
+
+      - name: Release and upload assets
+        uses: softprops/action-gh-release@v0.1.6
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ./clash/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
