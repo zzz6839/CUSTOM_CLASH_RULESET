@@ -26,35 +26,100 @@ jobs:
           echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "Apple=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml" >> $GITHUB_ENV
-          echo "bahamut=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bahamut.yaml" >> $GITHUB_ENV
-          echo "bilibili=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/BilibiliHMT.yaml" >> $GITHUB_ENV
+          echo "Bahamut=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bahamut.yaml" >> $GITHUB_ENV
+          echo "BilibiliHMT=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/BilibiliHMT.yaml" >> $GITHUB_ENV
           echo "DMM=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DMM/DMM.yaml" >> $GITHUB_ENV
-          echo "ehentai=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EHGallery/EHGallery.yaml" >> $GITHUB_ENV
-          echo "tiktok=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/TikTok.yaml" >> $GITHUB_ENV
-          echo "telegram=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml" >> $GITHUB_ENV
-        
-          echo "DOMESTIC=https://raw.githubusercontent.com/zzz6839/PROXY-PROVIDERS-SYNC/zzz6839-patch-1/domestic.yaml" >> $GITHUB_ENV
+          echo "Ehentai=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EHGallery/EHGallery.yaml" >> $GITHUB_ENV
+          echo "Tiktok=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/TikTok.yaml" >> $GITHUB_ENV
+          echo "Telegram=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml" >> $GITHUB_ENV
           echo "EPIC=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml" >> $GITHUB_ENV
-          echo "steam=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Game/Steam.yaml" >> $GITHUB_ENV
-          echo "steamCN=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml" >> $GITHUB_ENV
-          echo "Proxy=https://raw.githubusercontent.com/zzz6839/PROXY-PROVIDERS-SYNC/zzz6839-patch-1/Proxy.yaml" >> $GITHUB_ENV
-          echo "onlinegame=https://raw.githubusercontent.com/zzz6839/PROXY-PROVIDERS-SYNC/zzz6839-patch-1/onlinegame.yaml" >> $GITHUB_ENV
-          echo "microsoft=https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Microsoft.yaml" >> $GITHUB_ENV
-          echo "github=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml" >> $GITHUB_ENV
-          echo "rockstar=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml" >> $GITHUB_ENV
+          echo "Steam=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Game/Steam.yaml" >> $GITHUB_ENV
+          echo "SteamCN=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml" >> $GITHUB_ENV
+          echo "Microsoft=https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Microsoft.yaml" >> $GITHUB_ENV
+          echo "Github=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml" >> $GITHUB_ENV
+          echo "Rockstar=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml" >> $GITHUB_ENV
+        shell: bash
+
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: check-out
       - uses: actions/checkout@v3
        
-       # generate domain.txt
-      - name: Generate icloud.txt file
+       # generate domain.yaml,
+      - name: Generate Apple_domain.yaml file
         run: |
-        
-        # generate ip.txt
-      - name: Generate icloud.txt file
+          curl -sSL ${Apple} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Apple_domain.yaml
+
+      - name: Generate bahamut_domain.yaml file
         run: |
-        
-        # release
+          curl -sSL ${Bahamut} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Bahamut_domain.yaml
+          
+      - name: Generate BilibiliHMT_domain.yaml file
+        run: |
+          curl -sSL ${BilibiliHMT} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> BilibiliHMT_domain.yaml
+          
+      - name: Generate DMM_domain.yaml file
+        run: |
+          curl -sSL ${DMM} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> DMM_domain.yaml
+          
+      - name: Generate Ehentai_domain.yaml file
+        run: |
+          curl -sSL ${Ehentai} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Ehentai_domain.yaml
+          
+      - name: Generate Tiktok_domain.yaml file
+        run: |
+          curl -sSL ${Tiktok} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Tiktok_domain.yaml
+          
+      - name: Generate Telegram_domain.yaml file
+        run: |
+          curl -sSL ${Telegram} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Telegram_domain.yaml
+          
+      - name: Generate EPIC_domain.yaml file
+        run: |
+          curl -sSL ${EPIC} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> EPIC_domain.yaml
+          
+      - name: Generate Steam_domain.yaml file
+        run: |
+          curl -sSL ${Steam} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Steam_domain.yaml
+          
+      - name: Generate SteamCN_domain.yaml file
+        run: |
+          curl -sSL ${SteamCN} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> SteamCN_domain.yaml
+          
+      - name: Generate Microsoft_domain.yaml file
+        run: |
+          curl -sSL ${Microsoft} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Microsoft_domain.yaml
+          
+      - name: Generate Github_domain.yaml file
+        run: |
+          curl -sSL ${Github} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Github_domain.yaml
+          
+      - name: Generate Rockstar_domain.yaml file
+        run: |
+          curl -sSL ${Rockstar} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Rockstar_domain.yaml
+          
+
+       # generate ip.txt
+      - name: Generate Apple_ip.txt file
+        run: |
+          curl -sSL ${Apple} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> Apple_ip.yaml
+          
+      - name: Generate BilibiliHMT_ip.txt file
+        run: |
+          curl -sSL ${BilibiliHMT} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> BilibiliHMT_ip.yaml
+          
+      - name: Generate DMM_ip.txt file
+        run: |
+          curl -sSL ${DMM} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> DMM_ip.yaml
+          
+      - name: Generate Ehentai_ip.txt file
+        run: |
+          curl -sSL ${Ehentai} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> Ehentai_ip.yaml
+          
+      - name: Generate Telegram_ip.txt file
+        run: |
+          curl -sSL ${Telegram} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> Telegram_ip.yaml
+
+       # release
       - name: Git push assets to "release" branch
         run: |
           git config user.name github-actions
