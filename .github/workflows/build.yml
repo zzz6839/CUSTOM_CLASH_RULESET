@@ -127,7 +127,7 @@ jobs:
 
       - name: Move domain/ip files to domain directory
         run: |
-          mkdir -p domain |    mkdir -p ip                    mkdir domain |    mkdir ip
+          mkdir -p domain |    mkdir -p ip                
           cp *_domain.yaml ./domain/  | cp *_ip.yaml ./ip/
 
     #  - name: Release and upload assets
@@ -149,7 +149,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release
-          git add domain
+          git add ./domain/
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
@@ -161,7 +161,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release
-          git add ip
+          git add ./ip/
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
