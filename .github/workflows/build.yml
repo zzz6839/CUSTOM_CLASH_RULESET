@@ -127,8 +127,8 @@ jobs:
 
       - name: Move domain/ip files to domain directory
         run: |
-          mkdir -p rule/domain |    mkdir rule/ip                
-          cp *_domain.yaml ./rule/domain/  | cp *_ip.yaml .rule/ip/
+          mkdir -p rule | cd rule | mkdir domain | mkdir ip                
+          cp *_domain.yaml ./rule/domain/  | cp *_ip.yaml ./rule/ip/
 
     #  - name: Release and upload assets
     #    uses: softprops/action-gh-release@v0.1.6
