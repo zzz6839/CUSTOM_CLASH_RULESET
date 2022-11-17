@@ -144,24 +144,24 @@ jobs:
         
       - name: Git push domain assets to "release" branch
         run: |
-          cd domain || exit 1
+          cd / || exit 1
           git init
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release
-          git add ./domain/
+          git add .
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
 
-      - name: Git push ip assets to "release" branch
-        run: |
-          cd ip || exit 1
-          git init
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b release
-          git add ./ip/
-          git commit -m "${{ env.RELEASE_NAME }}"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f origin release
+    #  - name: Git push ip assets to "release" branch
+    #    run: |
+    #      cd ip || exit 1
+    #      git init
+    #      git config --local user.name "github-actions[bot]"
+    #      git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    #      git checkout -b release
+    #      git add ip/
+    #      git commit -m "${{ env.RELEASE_NAME }}"
+    #      git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+    #      git push -f origin release
