@@ -5,7 +5,7 @@ name: build new rule-set
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 23 * * 5"
+    - cron: "0 23 * * *"
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -21,7 +21,7 @@ jobs:
       - name: Set date
         run: |
           echo "TZ=Asia/Shanghai" >> $GITHUB_ENV
-        
+        #ensure rulesets with proxy groups gets ip/domain rule-sets
       - name: Set variables
         run: |
           echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
@@ -39,6 +39,7 @@ jobs:
           echo "Microsoft=https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Microsoft.yaml" >> $GITHUB_ENV
           echo "Github=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml" >> $GITHUB_ENV
           echo "Rockstar=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml" >> $GITHUB_ENV
+          echo "China=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Classical.yaml" >> $GITHUB_ENV
         shell: bash
 
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -98,6 +99,10 @@ jobs:
         run: |
           curl -sSL ${Rockstar} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Rockstar_domain.yaml
           
+      - name: Generate China_domain.yaml file
+        run: |
+          curl -sSL ${China} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> China_domain.yaml
+          
 
        # generate ip.txt
       - name: Generate Apple_ip.txt file
@@ -120,10 +125,12 @@ jobs:
         run: |
           curl -sSL ${Telegram} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> Telegram_ip.yaml
 
-      - name: Move files to clash directory
+      - name: Move domain/ip files to domain directory
         run: |
-          mkdir -p clash
-          cp *.yaml ./clash/
+          mkdir -p domain
+          mkdir -p ip
+          cp *_domain.yaml ./domain/
+          cp *_ip.yaml ./ip/
 
       - name: Release and upload assets
         uses: softprops/action-gh-release@v0.1.6
@@ -133,19 +140,30 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ./clash/*
+            ./domain/* | ./ip/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-      - name: Git push assets to "release" branch
+      - name: Git push domain assets to "release" branch
         run: |
-          cd clash || exit 1
+          cd domain || exit 1
           git init
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release
-          git add .
+          git add domain
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
 
+      - name: Git push ip assets to "release" branch
+        run: |
+          cd ip || exit 1
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b release
+          git add ip
+          git commit -m "${{ env.RELEASE_NAME }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin release
