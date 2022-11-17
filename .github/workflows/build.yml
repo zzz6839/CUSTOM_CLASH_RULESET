@@ -144,7 +144,7 @@ jobs:
         
       - name: Git push domain assets to "release" branch
         run: |
-          cd / || exit 1
+          cd  || exit 1
           git init
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
