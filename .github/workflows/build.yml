@@ -127,7 +127,10 @@ jobs:
 
       - name: Move domain/ip files to domain directory
         run: |
-          mkdir -p rule | cd rule | mkdir domain | mkdir ip                
+          mkdir -p rule
+          cd rule
+          mkdir domain
+          mkdir ip                
           cp *_domain.yaml ./rule/domain/  | cp *_ip.yaml ./rule/ip/
 
     #  - name: Release and upload assets
