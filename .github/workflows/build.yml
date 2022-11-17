@@ -125,29 +125,26 @@ jobs:
         run: |
           curl -sSL ${Telegram} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" >> Telegram_ip.yaml
 
-      - name: Move domain/ip files to domain directory
+      - name: Move files to clash directory
         run: |
-          mkdir -p rule
-          cd rule
-          mkdir domain
-          mkdir ip                
-          cp *_domain.yaml ./rule/domain/  | cp *_ip.yaml ./rule/ip/
+          mkdir -p clash
+          cp *.yaml ./clash/
 
-    #  - name: Release and upload assets
-    #    uses: softprops/action-gh-release@v0.1.6
-    #    with:
-    #      name: ${{ env.RELEASE_NAME }}
-    #      tag_name: ${{ env.TAG_NAME }}
-    #      draft: false
-    #      prerelease: false
-    #      files: |
-    #        ./domain/* | ./ip/*
-    #    env:
-    #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release and upload assets
+        uses: softprops/action-gh-release@v0.1.6
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+          files: |
+            ./clash/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Git push assets to "release" branch
         run: |
-          cd  rule || exit 1
+          cd clash || exit 1
           git init
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -156,15 +153,3 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f origin release
-
-    #  - name: Git push ip assets to "release" branch
-    #    run: |
-    #      cd ip || exit 1
-    #      git init
-    #      git config --local user.name "github-actions[bot]"
-    #      git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-    #      git checkout -b release
-    #      git add ip/
-    #      git commit -m "${{ env.RELEASE_NAME }}"
-    #      git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-    #      git push -f origin release
