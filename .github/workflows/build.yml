@@ -41,6 +41,7 @@ jobs:
           echo "Rockstar=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml" >> $GITHUB_ENV
           echo "China=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Domain.yaml" >> $GITHUB_ENV
           echo "Reject=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.yaml" >> $GITHUB_ENV
+          echo "Reject_domain=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising_Domain.yaml" >> $GITHUB_ENV
         shell: bash
 
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -103,6 +104,10 @@ jobs:
       - name: Generate China_domain.txt file
         run: |
           curl -sSL ${China} >> China_domain.txt
+          
+      - name: Generate Reject_domain.txt file
+        run: |
+          curl -sSL ${Reject_domain} >> Reject_domain.txt
           
 
        # generate ip.txt
