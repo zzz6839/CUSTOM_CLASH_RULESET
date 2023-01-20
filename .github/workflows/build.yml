@@ -133,7 +133,7 @@ jobs:
           
       - name: Generate Reject_ip.txt file
         run: |
-          curl -sSL ${Reject} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT|IP-CIDR,)" >> Reject_ip.yaml
+          curl -sSL ${Reject} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" | sed 's/IP-CIDR,//g' >> Reject_ip.yaml
 
       - name: Move files to clash directory
         run: |
