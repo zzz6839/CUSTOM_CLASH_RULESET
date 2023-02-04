@@ -134,7 +134,7 @@ jobs:
           
       - name: Generate Telegram_ip.txt file
         run: |
-          curl -sSL ${Telegram} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" | sed 's/IP-CIDR,//g' >> Telegram_ip.yaml
+          curl -sSL ${Telegram} | grep -v -E "*(DOMAIN|PROCESS-NAME|USER-AGENT)" | sed 's/IP-CIDR,//g'| sed 's/IP-CIDR6,//g' >> Telegram_ip.yaml
           
       - name: Generate Reject_ip.txt file
         run: |
