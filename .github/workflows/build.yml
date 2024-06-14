@@ -31,7 +31,7 @@ jobs:
           echo "BilibiliHMT=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/BilibiliHMT.yaml" >> $GITHUB_ENV
           echo "DMM=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DMM/DMM.yaml" >> $GITHUB_ENV
           echo "Ehentai=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EHGallery/EHGallery.yaml" >> $GITHUB_ENV
-          echo "Tiktok=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/TikTok.yaml" >> $GITHUB_ENV
+          echo "Tiktok=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml" >> $GITHUB_ENV
           echo "Telegram=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml" >> $GITHUB_ENV
           echo "EPIC=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml" >> $GITHUB_ENV
           echo "GameDownload=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload.yaml" >> $GITHUB_ENV
