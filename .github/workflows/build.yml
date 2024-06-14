@@ -35,7 +35,7 @@ jobs:
           echo "Telegram=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml" >> $GITHUB_ENV
           echo "EPIC=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml" >> $GITHUB_ENV
           echo "GameDownload=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload.yaml" >> $GITHUB_ENV
-          echo "Steam=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Game/Steam.yaml" >> $GITHUB_ENV
+          echo "Steam=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml" >> $GITHUB_ENV
           echo "SteamCN=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml" >> $GITHUB_ENV
           echo "Microsoft=https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Microsoft.yaml" >> $GITHUB_ENV
           echo "Github=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml" >> $GITHUB_ENV
