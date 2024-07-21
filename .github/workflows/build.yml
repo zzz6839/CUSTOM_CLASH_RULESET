@@ -52,7 +52,7 @@ jobs:
 
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: check-out
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.7
        
        # generate domain.yaml,
       - name: Generate Apple_domain.yaml file
@@ -172,7 +172,7 @@ jobs:
           cp *.txt  ./clash/
 
       - name: Release and upload assets
-        uses: softprops/action-gh-release@v0.1.6
+        uses: softprops/action-gh-release@v2.0.8
         with:
           name: ${{ env.RELEASE_NAME }}
           tag_name: ${{ env.TAG_NAME }}
