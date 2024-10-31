@@ -48,6 +48,8 @@ jobs:
           echo "Twitch=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitch/Twitch.yaml" >> $GITHUB_ENV
           echo "RiotGames=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Riot/Riot.yaml" >> $GITHUB_ENV
           echo "Speedtest=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Speedtest/Speedtest.yaml" >> $GITHUB_ENV
+          echo "Youtube=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml" >> $GITHUB_ENV
+
         shell: bash
 
        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -129,7 +131,11 @@ jobs:
       
       - name: Generate Speedtest.yaml file
         run: |
-          curl -sSL ${Speedtest} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Speedtest.yaml    
+          curl -sSL ${Speedtest} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> Speedtest.yaml
+      
+      - name: Generate YouTube.yaml file
+        run: |
+          curl -sSL ${YouTube} | grep -v -E "*(IP-CIDR|PROCESS-NAME|USER-AGENT)" >> YouTube.yaml
           
       - name: Generate China_domain.txt file
         run: |
